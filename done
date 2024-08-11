@@ -4,3 +4,11 @@ FROM   (SELECT user_id,
         FROM   user_actions
         WHERE  action = 'create_order'
         GROUP BY user_id) as t1
+
+
+with test_1 as (SELECT user_id,
+                       count(distinct order_id) as orders_avg
+                FROM   user_actions
+                GROUP BY user_id)
+SELECT round(avg(orders_avg), 2) as orders_avg
+FROM   test_1;
