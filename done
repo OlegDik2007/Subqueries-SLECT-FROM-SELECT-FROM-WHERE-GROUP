@@ -12,3 +12,41 @@ with test_1 as (SELECT user_id,
                 GROUP BY user_id)
 SELECT round(avg(orders_avg), 2) as orders_avg
 FROM   test_1;
+
+SELECT product_id,
+       name,
+       price
+FROM   products
+WHERE  price > (SELECT avg(price)
+                FROM   products) +20
+ORDER BY product_id desc
+
+
+SELECT product_id,
+       name,
+       price
+FROM   products
+WHERE  price > (SELECT avg(price)
+                FROM   products) +20
+ORDER BY product_id desc
+
+
+
+WITH 
+subquery AS (
+    SELECT MAX(column_2)
+    FROM table_2
+)
+
+SELECT column_1
+FROM table_1
+WHERE column_1 = (SELECT * FROM subquery) 
+
+
+
+
+SELECT column
+FROM table
+WHERE column >= (SELECT MAX(column_1) FROM table_1) - 100
+    AND column <= (SELECT MAX(column_2) FROM table_2)
+
